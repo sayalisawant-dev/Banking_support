@@ -1,8 +1,9 @@
 from strands.models import BedrockModel
 
-# Uses global inference profile for Claude Sonnet 4.5
-# https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html
-MODEL_ID = "global.anthropic.claude-sonnet-4-5-20250929-v1:0"
+# Amazon Nova Pro — free tier, no payment instrument required
+# Replaced Claude Sonnet 4.5 which requires AWS Marketplace subscription
+# https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html
+MODEL_ID = "amazon.nova-pro-v1:0"
 
 
 def load_model() -> BedrockModel:

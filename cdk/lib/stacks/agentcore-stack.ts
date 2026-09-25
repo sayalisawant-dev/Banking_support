@@ -401,6 +401,19 @@ export class AgentCoreStack extends cdk.Stack {
                         `arn:aws:bedrock:${region}:${accountId}:*`,
                     ],
                 }),
+                // Required for Amazon Nova Pro and other models gated behind Marketplace.
+                // Without these permissions the runtime role receives:
+                //   "AccessDeniedException: aws-marketplace:ViewSubscriptions is not authorized"
+                new iam.PolicyStatement({
+                    sid: 'MarketplaceModelAccess',
+                    effect: iam.Effect.ALLOW,
+                    actions: [
+                        'aws-marketplace:ViewSubscriptions',
+                        'aws-marketplace:Subscribe',
+                        'aws-marketplace:Unsubscribe',
+                    ],
+                    resources: ['*'],
+                }),
                 new iam.PolicyStatement({
                     sid: 'AgentCoreMemoryAccess',
                     effect: iam.Effect.ALLOW,

@@ -336,6 +336,9 @@ def do_login(export_mode=False):
     else:
         print("Opening browser for authentication...", file=sys.stderr)
 
+    # Print the URL so headless EC2 users can copy it and open it in a local browser
+    # via SSH tunnel: ssh -L 3000:localhost:3000 ec2-user@<EC2-PUBLIC-IP>
+    print(f"\nOpen this URL in your browser:\n{auth_url}\n", file=sys.stderr)
     webbrowser.open(auth_url)
 
     if not export_mode:

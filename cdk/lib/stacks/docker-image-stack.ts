@@ -13,9 +13,13 @@ export class DockerImageStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props: DockerImageStackProps) {
         super(scope, id, props);
 
+        // ⚠️  LINUX_ARM64 required — AgentCore Runtime only accepts arm64 container images.
+        // Deploying an amd64 image will fail with:
+        //   "Architecture incompatible. Supported platforms: [arm64]"
+        // Run this from a t4g (Graviton arm64) EC2 instance so Docker builds natively.
         const asset = new ecr_assets.DockerImageAsset(this, `${props.appName}-AppImage`, {
             directory: path.join(__dirname, "../../../"), // path to root of the project
-            platform: Platform.LINUX_AMD64,
+            platform: Platform.LINUX_ARM64,
         });
 
         this.imageUri = asset.imageUri;
