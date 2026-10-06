@@ -60,7 +60,7 @@ Cognito Authentication
 | Runtime                        |
 |                                |
 | Containerized Strands Agent    |
-| Claude Sonnet                  |
+| DeepSeek V3.2              |
 +---------------+----------------+
                 |
                 | Tool request
@@ -90,7 +90,7 @@ CloudWatch provides observability.
 
 -   Deploy the customer-support agent to AgentCore Runtime.
 -   Run the agent as a containerized Strands agent.
--   Use the documented Claude model.
+-   Use the configured DeepSeek V3.2 model.
 -   Support authenticated invocation.
 -   Expose the agent through the AgentCore runtime invocation flow.
 -   Allow the agent to call tools through AgentCore Gateway.

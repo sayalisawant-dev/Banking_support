@@ -61,14 +61,13 @@ if [ -d "$NPM_CACHE_DIR" ]; then
     fi
 fi
 
-# Check Bedrock model access for required model (Claude Sonnet 4.5)
-# Bedrock auto-enables all serverless models, but Anthropic requires a one-time usage form.
+# Check Bedrock model access for required model (DeepSeek V3.2)
 # Note: This tests the *deployer's* credentials. The agent runtime uses its own execution role,
 # so a failure here does not necessarily mean the deployed agent will fail.
-REQUIRED_MODEL="global.anthropic.claude-sonnet-4-5-20250929-v1:0"
+REQUIRED_MODEL="deepseek.deepseek-v3-2"
 echo "    Verifying Bedrock model access ($REQUIRED_MODEL)..."
 if BODY_FILE=$(mktemp 2>/dev/null) && \
-   echo -n '{"anthropic_version":"bedrock-2023-05-31","max_tokens":32,"messages":[{"role":"user","content":"hi"}]}' > "$BODY_FILE" && \
+   echo -n '{"messages":[{"role":"user","content":"hi"}],"max_tokens":32}' > "$BODY_FILE" && \
    aws bedrock-runtime invoke-model --model-id "$REQUIRED_MODEL" \
        --content-type "application/json" --accept "application/json" \
        --cli-connect-timeout 5 --cli-read-timeout 10 \
@@ -80,9 +79,8 @@ else
     echo "WARNING: Could not invoke Bedrock model ($REQUIRED_MODEL)." >&2
     echo "         Possible reasons:" >&2
     echo "" >&2
-    echo "         1. Anthropic first-time usage form not completed." >&2
-    echo "            Complete it in the Bedrock console Playground by selecting any Anthropic Claude model." >&2
-    echo "            Details: https://aws.amazon.com/blogs/security/simplified-amazon-bedrock-model-access/" >&2
+    echo "         1. Model access not enabled in Bedrock console." >&2
+    echo "            Enable it at: https://console.aws.amazon.com/bedrock/home#/modelaccess" >&2
     echo "" >&2
     echo "         2. Your current IAM identity lacks bedrock:InvokeModel permission." >&2
     echo "            Note: the deployed agent uses its own execution role, so this may not" >&2

@@ -24,7 +24,7 @@ unless the project requirements are explicitly changed.
 -   The customer-support agent runs inside AgentCore Runtime.
 -   The agent is containerized.
 -   The Runtime hosts the Strands agent.
--   The Runtime uses the configured Claude model.
+-   The Runtime uses the configured DeepSeek V3.2 model.
 -   Runtime invocation must use the documented authentication flow.
 -   Tool calls from the Runtime-hosted agent must use AgentCore Gateway.
 -   Verify Runtime status before testing when deployment already exists.

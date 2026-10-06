@@ -15,7 +15,7 @@ Cognito
    v
 AgentCore Runtime
    |
-   | Strands Agent + Claude
+   | Strands Agent + DeepSeek V3.2
    v
 AgentCore Gateway
    |
@@ -37,7 +37,7 @@ CloudWatch        -> observability
 ## AgentCore Runtime
 
 The Runtime: - Hosts the containerized Strands agent. - Runs the
-customer-support agent. - Uses the configured Claude model. - Receives
+customer-support agent. - Uses the configured DeepSeek V3.2 model. - Receives
 authenticated invocations. - Starts the agent reasoning flow. -
 Initiates tool calls through Gateway. - Participates in the observable
 request lifecycle.
@@ -69,7 +69,7 @@ Containerized Strands agent.
 Documented default model:
 
 ``` text
-Claude Sonnet 4.5
+DeepSeek V3.2
 ```
 
 Model configuration:

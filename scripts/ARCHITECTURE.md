@@ -23,7 +23,7 @@ application.**
               | Amazon Bedrock AgentCore Runtime         |
               |                                          |
               | Containerized Strands Customer Agent     |
-              | Claude Sonnet                            |
+              | DeepSeek V3.2                            |
               |                                          |
               | Agent execution / inference / sessions   |
               +--------------------+---------------------+
@@ -72,7 +72,7 @@ agent**.
 
 It is responsible for: - Running the customer-support agent. - Receiving
 authenticated agent invocations. - Executing the agent's reasoning
-loop. - Using the configured Claude model. - Initiating tool calls when
+loop. - Using the configured DeepSeek V3.2 model. - Initiating tool calls when
 the agent needs customer/order/refund information. - Connecting the
 running agent to AgentCore Gateway. - Participating in the observable
 request lifecycle.
@@ -91,7 +91,7 @@ AgentCore resources.
 The README identifies the Runtime as:
 
 ``` text
-AgentCore Runtime — containerized agent running Claude Sonnet 4.5
+AgentCore Runtime — containerized agent running DeepSeek V3.2
 ```
 
 ### Runtime Verification
@@ -117,7 +117,7 @@ AgentCore Runtime
  | Strands agent receives prompt
  |
  v
-Claude Model
+DeepSeek V3.2 Model
  |
  | decides a tool is required
  v
@@ -222,7 +222,7 @@ The README states that the model is configured in:
 src/model/load.py
 ```
 
-The documented default is Claude Sonnet 4.5.
+The documented default is DeepSeek V3.2.
 
 ## 10. Architecture Principle
 

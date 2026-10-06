@@ -22,7 +22,7 @@ the execution layer.
         |                                |
         | Container                      |
         |   └── Strands Agent            |
-        |       └── Claude               |
+        |       └── DeepSeek V3.2      |
         +---------------+----------------+
                         |
                         | tool request
@@ -57,7 +57,7 @@ Container
   |
   +-- Strands Agent
         |
-        +-- Claude Model
+        +-- DeepSeek V3.2 Model
         |
         +-- Customer support reasoning
         |
@@ -132,7 +132,7 @@ operations - Latency - Token counts
   ----------------------- --------------------
   Cognito                 Identity
   **AgentCore Runtime**   Agent execution
-  Claude/Strands          Reasoning
+  DeepSeek/Strands          Reasoning
   Gateway                 Tool routing
   Policy Engine           Authorization
   Lambda                  Backend execution

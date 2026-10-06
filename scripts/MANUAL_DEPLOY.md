@@ -8,7 +8,7 @@ on a Linux machine (or EC2) step by step, incorporating all fixes discovered dur
 ## Architecture Overview
 
 ```
-User → Cognito (JWT) → AgentCore Runtime (containerized Strands agent + Amazon Nova Pro)
+User → Cognito (JWT) → AgentCore Runtime (containerized Strands agent + DeepSeek V3.2)
                                 │
                                 │ tool call (MCP)
                                 ▼
@@ -43,7 +43,7 @@ CloudWatch       ─── OpenTelemetry observability (auto-instrumented)
 ### AWS Account Requirements
 
 - IAM user/role with **AdministratorAccess** (recommended for demo)
-- Bedrock model access enabled for **Amazon Nova Pro** (one-time console step)
+- Bedrock model access enabled for **DeepSeek V3.2** (one-time console step)
 - EC2 architecture must be **arm64 (aarch64)** — AgentCore Runtime only accepts arm64 images
 
 > ⚠️  **x86_64 instances will fail at the AgentCore Runtime deploy step.**
@@ -167,12 +167,12 @@ aws sts get-caller-identity
 
 ## Phase 2 — Enable Bedrock Model Access (One-Time)
 
-Amazon Nova Pro requires a one-time subscription before it can be invoked.
+DeepSeek V3.2 requires a one-time subscription before it can be invoked.
 
 1. Open the [AWS Bedrock Console](https://console.aws.amazon.com/bedrock/home?region=us-east-1#/modelaccess)
 2. Go to **Model access** in the left nav
 3. Click **Modify model access**
-4. Find **Amazon Nova Pro** under Amazon models
+4. Find **DeepSeek V3.2** under DeepSeek models
 5. Check the box → **Next** → **Submit**
 6. Wait for status to show **Access granted** (usually instant)
 
@@ -266,14 +266,23 @@ def get_streamable_http_mcp_client(user_token: Optional[str] = None) -> MCPClien
 EOF
 ```
 
-### Step 12: Set Model to Amazon Nova Pro
+### Step 12: Set Model to DeepSeek V3.2
 
 ```bash
 cat > src/model/load.py << 'EOF'
 from strands.models import BedrockModel
 
-# Amazon Nova Pro (free tier, no payment instrument required)
-MODEL_ID = "amazon.nova-pro-v1:0"
+# DeepSeek V3.2 — replaced Claude Sonnet 4.5
+MODEL_ID = "deepseek.deepseek-v3-2"
+
+
+def load_model() -> BedrockModel:
+    """
+    Get Bedrock model client.
+    Uses IAM authentication via the execution role.
+    """
+    return BedrockModel(model_id=MODEL_ID)
+EOF
 
 
 def load_model() -> BedrockModel:
@@ -759,7 +768,7 @@ aws iam put-role-policy \
   }'
 ```
 
-Also ensure model access is enabled in the Bedrock console for Nova Pro.
+Also ensure model access is enabled in the Bedrock console for DeepSeek V3.2.
 
 ---
 
@@ -800,6 +809,6 @@ nvm install 20
 | Lambda | `supportAgentDemo-OrderLambda` | Orders + refund API |
 | AgentCore Gateway | `supportAgentDemo-Gateway` | MCP tool router |
 | AgentCore Memory | `supportAgentDemo_Memory_v2` | Persistent context |
-| AgentCore Runtime | `supportAgentDemo_Agent` | Containerized agent (arm64, Nova Pro) |
+| AgentCore Runtime | `supportAgentDemo_Agent` | Containerized agent (arm64, DeepSeek V3.2) |
 | ECR | CDK staging repo | Docker image storage |
 | CloudWatch | Auto-created | OpenTelemetry traces |

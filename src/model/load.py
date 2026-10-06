@@ -1,9 +1,8 @@
 from strands.models import BedrockModel
 
-# Amazon Nova Pro — free tier, no payment instrument required
-# Replaced Claude Sonnet 4.5 which requires AWS Marketplace subscription
+# DeepSeek V3.2 — replaced Claude Sonnet 4.5 (requires Marketplace subscription)
 # https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html
-MODEL_ID = "amazon.nova-pro-v1:0"
+MODEL_ID = "deepseek.deepseek-v3-2"
 
 
 def load_model() -> BedrockModel:

@@ -136,12 +136,12 @@ def get_streamable_http_mcp_client(user_token: Optional[str] = None) -> MCPClien
         return MCPClient(lambda: streamable_http_client(gateway_url, headers={"Authorization": f"Bearer {user_token}"}))
 EOF
 
-## Fix 3: Use Amazon Nova Pro instead of Claude Sonnet 4.5
+## Fix 3: Use DeepSeek V3.2 instead of Claude Sonnet 4.5
 cat > src/model/load.py << 'EOF'
 from strands.models import BedrockModel
 
-# Amazon Nova Pro (free tier, no Marketplace subscription needed)
-MODEL_ID = "amazon.nova-pro-v1:0"
+# DeepSeek V3.2 — replaced Claude Sonnet 4.5
+MODEL_ID = "deepseek.deepseek-v3-2"
 
 
 def load_model() -> BedrockModel:
